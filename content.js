@@ -125,7 +125,10 @@
   }
 
   function convertTextToHtml(text) {
-    return text.replace(/\n/g, "<br>").replace(/^(.*)$/gm, "<div>$1</div>");
+    return text
+      .replace(/\n$/, "")
+      .replace(/\n/g, "<br>")
+      .replace(/^(.*)$/gm, "<div>$1</div>");
   }
 
   function getHTML(text) {

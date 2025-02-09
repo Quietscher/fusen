@@ -2,6 +2,7 @@
   position: absolute;
   background: #ffeb3b;
   padding: 10px;
+  padding-top: 20px;
   box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
   min-width: 200px;
   min-height: 150px;

@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "付箋メモ",
+  "name": "fusen",
   "version": "1.0.0",
   "description": "Add sticky notes to any webpage and keep them in place.",
   "permissions": ["storage"],
