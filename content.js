@@ -1,6 +1,6 @@
 (async () => {
-  const notes = [];
-  const { marked } = await import(chrome.runtime.getURL('libs/marked.esm.js'));
+  let notes = [];
+  const { marked } = await import(chrome.runtime.getURL("libs/marked.esm.js"));
 
   // Load existing notes
   chrome.runtime.sendMessage({ action: "loadNotes" }, (response) => {
@@ -16,9 +16,10 @@
     note.style.top = `${data.y}px`;
     note.contentEditable = "true";
     note.textContent = data.text;
+    note.dataset.id = data.id || crypto.randomUUID();
+    note.innerHTML = getHTML(data.text);
     document.body.appendChild(note);
 
-    // Dragging
     let offsetX,
       offsetY,
       isDragging = false;
@@ -40,12 +41,22 @@
       isDragging = false;
     });
 
-    // Save content changes
-    note.addEventListener("input", saveNotes);
+    // Show raw Markdown when clicking inside
+    note.addEventListener("focus", () => {
+      note.textContent = note.dataset.rawText;
+    });
+
+    // Show formatted Markdown when clicking outside
+    note.addEventListener("blur", () => {
+      note.dataset.rawText = getTextWithLineBreaks(note);
+      note.innerHTML = getHTML(note.dataset.rawText);
+      saveNotes();
+    });
 
     // Right-click to delete
     note.addEventListener("contextmenu", (e) => {
       e.preventDefault();
+      notes = notes.filter((note) => note.dataset.id !== e.target.dataset.id);
       note.remove();
       saveNotes();
     });
@@ -53,12 +64,29 @@
     notes.push(note);
   }
 
+  function getTextWithLineBreaks(e) {
+    return e.innerHTML
+      .replace(/<div>/g, "\n")
+      .replace(/<br\s*\/?>/g, "\n")
+      .replace(/<\/div>/g, "");
+  }
+
+  function getHTML(text) {
+    return marked.parse(text || "", {
+      gfm: true,
+      breaks: true,
+    });
+  }
+
   function saveNotes() {
     const noteData = notes.map((note) => ({
-      text: note.textContent,
+      ref: note,
+      text: note.dataset.rawText,
+      id: note.dataset.id,
       x: parseInt(note.style.left),
       y: parseInt(note.style.top),
     }));
+
     chrome.runtime.sendMessage({ action: "saveNotes", notes: noteData });
   }
 
