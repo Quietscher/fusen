@@ -1,11 +1,18 @@
 (async () => {
   let notes = [];
+  let activeNote = null;
   const { marked } = await import(chrome.runtime.getURL("libs/marked.esm.js"));
 
-  // Load existing notes
+  let mouseX = 100,
+    mouseY = 100;
+
+  document.addEventListener("mousemove", (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+  });
+
   chrome.runtime.sendMessage({ action: "loadNotes" }, (response) => {
     if (response.notes) {
-      console.log(response.notes);
       response.notes.forEach(createNote);
     }
   });
@@ -16,12 +23,12 @@
     note.style.left = `${data.x}px`;
     note.style.top = `${data.y}px`;
     note.contentEditable = "true";
-    note.textContent = data.text;
+    note.textContent = data.text || "";
     note.dataset.id = data.id || crypto.randomUUID();
-    note.dataset.rawText = data.text;
+    note.dataset.rawText = data.text || "";
     note.style.width = `${data.width || 200}px`;
     note.style.height = `${data.height || 150}px`;
-    note.innerHTML = getHTML(data.text);
+    note.innerHTML = getHTML(data.text || "");
     document.body.appendChild(note);
 
     let offsetX,
@@ -31,7 +38,6 @@
     note.addEventListener("mousedown", (e) => {
       if (isNearResizeHandle(e)) return;
       if (e.target !== note) return;
-      console.log("dragging");
       isDragging = true;
       offsetX = e.clientX - note.offsetLeft;
       offsetY = e.clientY - note.offsetTop;
@@ -42,7 +48,6 @@
 
     note.addEventListener("mousedown", (e) => {
       if (!isNearResizeHandle(e)) return;
-      console.log("resizing");
 
       isResizing = true;
       initialWidth = note.offsetWidth;
@@ -62,14 +67,13 @@
 
     function isNearResizeHandle(e) {
       const note = e.target;
-      const resizeAreaSize = 12; // Size of the resize handle
-      const resizeAreaBuffer = 8; // Buffer area for detecting mouse near the corner
+      const resizeAreaSize = 12;
+      const resizeAreaBuffer = 8;
 
       const noteRect = note.getBoundingClientRect();
       const mouseX = e.clientX;
       const mouseY = e.clientY;
 
-      // Check if the mouse is within the bottom-right resize area
       return (
         mouseX >= noteRect.right - resizeAreaSize - resizeAreaBuffer &&
         mouseY >= noteRect.bottom - resizeAreaSize - resizeAreaBuffer
@@ -94,27 +98,29 @@
       isDragging = false;
     });
 
-    // Show raw Markdown when clicking inside
     note.addEventListener("focus", () => {
+      activeNote = note;
       note.innerHTML = convertTextToHtml(note.dataset.rawText);
     });
 
-    // Show formatted Markdown when clicking outside
     note.addEventListener("blur", () => {
+      activeNote = null;
       note.dataset.rawText = getTextWithLineBreaks(note);
       note.innerHTML = getHTML(note.dataset.rawText);
       saveNotes();
     });
 
-    // Right-click to delete
     note.addEventListener("contextmenu", (e) => {
       e.preventDefault();
-      notes = notes.filter((note) => note.dataset.id !== e.target.dataset.id);
-      note.remove();
-      saveNotes();
     });
 
     notes.push(note);
+  }
+
+  function deleteNote(e) {
+    notes = notes.filter((note) => note.dataset.id !== e.target.dataset.id);
+    note.remove();
+    saveNotes();
   }
 
   function getTextWithLineBreaks(e) {
@@ -148,11 +154,33 @@
       width: note.offsetWidth,
       height: note.offsetHeight,
     }));
-
     chrome.runtime.sendMessage({ action: "saveNotes", notes: noteData });
   }
 
-  // Add a new note when clicking a button
+  document.addEventListener("keydown", (e) => {
+    if (e.ctrlKey || e.metaKey) {
+      if (e.key === "y") {
+        e.preventDefault();
+        createNote({ x: mouseX - 100, y: mouseY - 10 });
+        saveNotes();
+      }
+    }
+
+    if (e.key === "Escape" && activeNote) {
+      activeNote.blur();
+    }
+
+    if (e.ctrlKey || e.metaKey) {
+      if (e.key === "x" && activeNote) {
+        notes = notes.filter(
+          (note) => note.dataset.id !== activeNote.dataset.id
+        );
+        activeNote.remove();
+        saveNotes();
+      }
+    }
+  });
+
   chrome.runtime.onMessage.addListener((message) => {
     if (message.action === "addNote") {
       createNote({ text: "New Note", x: 100, y: 100 });
