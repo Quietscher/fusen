@@ -22,7 +22,6 @@
     notes.forEach((note) => note.remove());
     notes = [];
     if (response.notes) {
-      console.log(response.notes);
       chrome.storage.local.get("matchPercentage", (result) => {
         const matchPercentage =
           result.matchPercentage !== undefined ? result.matchPercentage : 100;
@@ -35,7 +34,6 @@
             note.pathname,
             currentPathname
           );
-          console.log(domainMatch, pathnameMatch);
           if (matchPercentage === 0) {
             return domainMatch;
           } else {
@@ -235,7 +233,6 @@
 
   chrome.runtime.onMessage.addListener((message) => {
     if (!isListenerAdded && message.action === "addNote") {
-      console.log("addNote");
       isListenerAdded = true;
       createNote({ text: "New Note", x: 100, y: 100 });
       saveNotes();
