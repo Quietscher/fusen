@@ -19,6 +19,8 @@
     note.textContent = data.text;
     note.dataset.id = data.id || crypto.randomUUID();
     note.dataset.rawText = data.text;
+    note.style.width = `${data.width || 200}px`;
+    note.style.height = `${data.height || 150}px`;
     note.innerHTML = getHTML(data.text);
     document.body.appendChild(note);
 
@@ -27,10 +29,59 @@
       isDragging = false;
 
     note.addEventListener("mousedown", (e) => {
+      if (isNearResizeHandle(e)) return;
+      if (e.target !== note) return;
+      console.log("dragging");
       isDragging = true;
       offsetX = e.clientX - note.offsetLeft;
       offsetY = e.clientY - note.offsetTop;
     });
+
+    let isResizing = false;
+    let initialWidth, initialHeight, initialX, initialY;
+
+    note.addEventListener("mousedown", (e) => {
+      if (!isNearResizeHandle(e)) return;
+      console.log("resizing");
+
+      isResizing = true;
+      initialWidth = note.offsetWidth;
+      initialHeight = note.offsetHeight;
+      initialX = e.clientX;
+      initialY = e.clientY;
+      document.addEventListener("mousemove", handleResize);
+    });
+
+    document.addEventListener("mouseup", () => {
+      if (isResizing) {
+        saveNotes();
+        isResizing = false;
+        document.removeEventListener("mousemove", handleResize);
+      }
+    });
+
+    function isNearResizeHandle(e) {
+      const note = e.target;
+      const resizeAreaSize = 12; // Size of the resize handle
+      const resizeAreaBuffer = 8; // Buffer area for detecting mouse near the corner
+
+      const noteRect = note.getBoundingClientRect();
+      const mouseX = e.clientX;
+      const mouseY = e.clientY;
+
+      // Check if the mouse is within the bottom-right resize area
+      return (
+        mouseX >= noteRect.right - resizeAreaSize - resizeAreaBuffer &&
+        mouseY >= noteRect.bottom - resizeAreaSize - resizeAreaBuffer
+      );
+    }
+
+    function handleResize(e) {
+      const dx = e.clientX - initialX;
+      const dy = e.clientY - initialY;
+      note.style.width = `${initialWidth + dx}px`;
+      note.style.height = `${initialHeight + dy}px`;
+    }
 
     document.addEventListener("mousemove", (e) => {
       if (!isDragging) return;
@@ -68,8 +119,8 @@
 
   function getTextWithLineBreaks(e) {
     return e.innerHTML
-      .replace(/<div>/g, "") 
-      .replace(/<\/div>(?=\s*<div>)/g, "\n")
+      .replace(/<div>/g, "")
+      .replace(/<\/div>/g, "\n")
       .replace(/<br\s*\/?>/g, "\n");
   }
 
@@ -91,6 +142,8 @@
       id: note.dataset.id,
       x: parseInt(note.style.left),
       y: parseInt(note.style.top),
+      width: note.offsetWidth,
+      height: note.offsetHeight,
     }));
 
     chrome.runtime.sendMessage({ action: "saveNotes", notes: noteData });

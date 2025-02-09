@@ -1,48 +1,41 @@
 .sticky-note {
-    position: absolute;
-    background: #ffeb3b;
-    padding: 10px;
-    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
-    width: 200px;
-    height: 150px;
-    resize: both;
-    overflow: auto;
-    border-radius: 5px;
-    cursor: grab;
-    user-select: none;
-  }
-  
-  /* Markdown display */
-  .note-display {
-    width: 100%;
-    height: 100%;
-    font-size: 14px;
-    font-family: Arial, sans-serif;
-    overflow-y: auto;
-    user-select: text;
-    word-wrap: break-word;
-  }
-  
-  /* Hide textarea unless editing */
-  .note-content {
-    width: 100%;
-    height: 100%;
-    border: none;
-    background: transparent;
-    outline: none;
-    resize: none;
-    font-size: 14px;
-    font-family: Arial, sans-serif;
-    display: none;
-  }
-  
-  .sticky-note .resizer {
-    width: 10px;
-    height: 10px;
-    background: rgba(0, 0, 0, 0.2);
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    cursor: nwse-resize;
-  }
-  
+  position: absolute;
+  background: #ffeb3b;
+  padding: 10px;
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+  min-width: 200px;
+  min-height: 150px;
+  resize: both;
+  overflow: auto;
+  border-radius: 5px;
+  cursor: grab;
+  user-select: none;
+}
+
+.sticky-note > * {
+  cursor: auto;
+}
+
+/* Markdown display */
+.note-display {
+  width: 100%;
+  height: 100%;
+  font-size: 14px;
+  font-family: Arial, sans-serif;
+  overflow-y: auto;
+  user-select: text;
+  word-wrap: break-word;
+}
+
+/* Hide textarea unless editing */
+.note-content {
+  width: 100%;
+  height: 100%;
+  border: none;
+  background: transparent;
+  outline: none;
+  resize: none;
+  font-size: 14px;
+  font-family: Arial, sans-serif;
+  display: none;
+}
