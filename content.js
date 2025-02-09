@@ -5,6 +5,7 @@
   // Load existing notes
   chrome.runtime.sendMessage({ action: "loadNotes" }, (response) => {
     if (response.notes) {
+        console.log(response.notes);
       response.notes.forEach(createNote);
     }
   });
@@ -17,6 +18,7 @@
     note.contentEditable = "true";
     note.textContent = data.text;
     note.dataset.id = data.id || crypto.randomUUID();
+    note.dataset.rawText = data.text;
     note.innerHTML = getHTML(data.text);
     document.body.appendChild(note);
 

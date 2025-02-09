@@ -12,10 +12,6 @@
     user-select: none;
   }
   
-  .sticky-note:active {
-    cursor: grabbing;
-  }
-  
   /* Markdown display */
   .note-display {
     width: 100%;
