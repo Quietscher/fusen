@@ -5,7 +5,7 @@
   // Load existing notes
   chrome.runtime.sendMessage({ action: "loadNotes" }, (response) => {
     if (response.notes) {
-        console.log(response.notes);
+      console.log(response.notes);
       response.notes.forEach(createNote);
     }
   });
@@ -45,7 +45,7 @@
 
     // Show raw Markdown when clicking inside
     note.addEventListener("focus", () => {
-      note.textContent = note.dataset.rawText;
+      note.innerHTML = convertTextToHtml(note.dataset.rawText);
     });
 
     // Show formatted Markdown when clicking outside
@@ -68,9 +68,13 @@
 
   function getTextWithLineBreaks(e) {
     return e.innerHTML
-      .replace(/<div>/g, "\n")
-      .replace(/<br\s*\/?>/g, "\n")
-      .replace(/<\/div>/g, "");
+      .replace(/<div>/g, "") 
+      .replace(/<\/div>(?=\s*<div>)/g, "\n")
+      .replace(/<br\s*\/?>/g, "\n");
+  }
+
+  function convertTextToHtml(text) {
+    return text.replace(/\n/g, "<br>").replace(/^(.*)$/gm, "<div>$1</div>");
   }
 
   function getHTML(text) {
