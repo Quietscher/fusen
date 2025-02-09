@@ -1,5 +1,6 @@
-(() => {
+(async () => {
   const notes = [];
+  const { marked } = await import(chrome.runtime.getURL('libs/marked.esm.js'));
 
   // Load existing notes
   chrome.runtime.sendMessage({ action: "loadNotes" }, (response) => {

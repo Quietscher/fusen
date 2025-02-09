@@ -22,7 +22,14 @@
       "matches": ["<all_urls>"],
       "js": ["content.js"],
       "css": ["styles.css"],
-      "run_at": "document_idle"
+      "run_at": "document_idle",
+      "type": "module"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["libs/marked.esm.js"],
+      "matches": ["<all_urls>"]
     }
   ]
 }
