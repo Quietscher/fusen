@@ -231,10 +231,12 @@
     }
   });
 
+  let isListenerAdded = false;
+
   chrome.runtime.onMessage.addListener((message) => {
-    if (message.action === "addNote") {
-        console.log("addNote");
-        
+    if (!isListenerAdded && message.action === "addNote") {
+      console.log("addNote");
+      isListenerAdded = true;
       createNote({ text: "New Note", x: 100, y: 100 });
       saveNotes();
     }
