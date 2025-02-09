@@ -10,6 +10,7 @@
   overflow: auto;
   cursor: grab;
   user-select: none;
+  color: black;
 }
 
 .sticky-note > * {
