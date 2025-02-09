@@ -1,0 +1,15 @@
+.sticky-note {
+    position: absolute;
+    width: 150px;
+    min-height: 100px;
+    background: yellow;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    cursor: move;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.4;
+    z-index: 9999;
+  }
+  
