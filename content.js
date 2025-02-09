@@ -11,11 +11,47 @@
     mouseY = e.clientY;
   });
 
+  const currentDomain = window.location.hostname;
+  const currentPathname = window.location.pathname;
+
   chrome.runtime.sendMessage({ action: "loadNotes" }, (response) => {
     if (response.notes) {
-      response.notes.forEach(createNote);
+      chrome.storage.local.get("matchPercentage", (result) => {
+        const matchPercentage = result.matchPercentage || 100;
+
+        const notes = response.notes || [];
+        console.log(notes);
+
+        const filteredNotes = notes.filter((note) => {
+          const pathnameMatch = getMatchPercentage(
+            note.pathname,
+            currentPathname
+          );
+          return (
+            note.domain === currentDomain && pathnameMatch >= matchPercentage
+          );
+        });
+        console.log(filteredNotes);
+
+        filteredNotes.forEach((note) => {
+          createNote(note);
+        });
+      });
     }
   });
+
+  function getMatchPercentage(storedPathname, currentPathname) {
+    const minLength = Math.min(storedPathname.length, currentPathname.length);
+    let matchCount = 0;
+
+    for (let i = 0; i < minLength; i++) {
+      if (storedPathname[i] === currentPathname[i]) {
+        matchCount++;
+      }
+    }
+
+    return (matchCount / storedPathname.length) * 100;
+  }
 
   function createNote(data) {
     const note = document.createElement("div");
@@ -29,6 +65,8 @@
     note.style.width = `${data.width || 200}px`;
     note.style.height = `${data.height || 150}px`;
     note.innerHTML = getHTML(data.text || "");
+    note.dataset.domain = data.domain || currentDomain;
+    note.dataset.pathname = data.pathname || currentPathname;
     document.body.appendChild(note);
 
     let offsetX,
@@ -117,12 +155,6 @@
     notes.push(note);
   }
 
-  function deleteNote(e) {
-    notes = notes.filter((note) => note.dataset.id !== e.target.dataset.id);
-    note.remove();
-    saveNotes();
-  }
-
   function getTextWithLineBreaks(e) {
     return e.innerHTML
       .replace(/<div>/g, "")
@@ -153,6 +185,8 @@
       y: parseInt(note.style.top),
       width: note.offsetWidth,
       height: note.offsetHeight,
+      domain: note.dataset.domain,
+      pathname: note.dataset.pathname
     }));
     chrome.runtime.sendMessage({ action: "saveNotes", notes: noteData });
   }
