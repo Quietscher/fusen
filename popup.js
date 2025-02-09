@@ -6,7 +6,8 @@ document.getElementById("addNote").addEventListener("click", () => {
 
 document.addEventListener("DOMContentLoaded", () => {
   chrome.storage.local.get("matchPercentage", (result) => {
-    const percentage = result.matchPercentage || 100;
+    const percentage =
+      result.matchPercentage !== undefined ? result.matchPercentage : 100;
     document.getElementById("percentage").value = percentage;
   });
 });

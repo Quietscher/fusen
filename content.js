@@ -11,34 +11,50 @@
     mouseY = e.clientY;
   });
 
-  const currentDomain = window.location.hostname;
-  const currentPathname = window.location.pathname;
+  let currentDomain = window.location.hostname;
+  let currentPathname = window.location.pathname;
 
-  chrome.runtime.sendMessage({ action: "loadNotes" }, (response) => {
+  chrome.runtime.sendMessage({ action: "loadNotes" }, (r) =>
+    handleLoadNotes(r)
+  );
+
+  const handleLoadNotes = (response) => {
+    notes.forEach((note) => note.remove());
+    notes = [];
     if (response.notes) {
+      console.log(response.notes);
       chrome.storage.local.get("matchPercentage", (result) => {
-        const matchPercentage = result.matchPercentage || 100;
+        const matchPercentage =
+          result.matchPercentage !== undefined ? result.matchPercentage : 100;
 
-        const notes = response.notes || [];
-        console.log(notes);
+        const notesN = response.notes || [];
 
-        const filteredNotes = notes.filter((note) => {
+        let filteredNotes = notesN.filter((note) => {
+          const domainMatch = note.domain === currentDomain;
           const pathnameMatch = getMatchPercentage(
             note.pathname,
             currentPathname
           );
-          return (
-            note.domain === currentDomain && pathnameMatch >= matchPercentage
-          );
+          console.log(domainMatch, pathnameMatch);
+          if (matchPercentage === 0) {
+            return domainMatch;
+          } else {
+            return domainMatch && pathnameMatch >= matchPercentage;
+          }
         });
-        console.log(filteredNotes);
+
+        const existingNoteIds = new Set(
+          Array.from(notes).map((note) => note.dataset.id)
+        );
 
         filteredNotes.forEach((note) => {
-          createNote(note);
+          if (!existingNoteIds.has(note.id)) {
+            createNote(note);
+          }
         });
       });
     }
-  });
+  };
 
   function getMatchPercentage(storedPathname, currentPathname) {
     const minLength = Math.min(storedPathname.length, currentPathname.length);
@@ -186,7 +202,7 @@
       width: note.offsetWidth,
       height: note.offsetHeight,
       domain: note.dataset.domain,
-      pathname: note.dataset.pathname
+      pathname: note.dataset.pathname,
     }));
     chrome.runtime.sendMessage({ action: "saveNotes", notes: noteData });
   }
@@ -217,8 +233,23 @@
 
   chrome.runtime.onMessage.addListener((message) => {
     if (message.action === "addNote") {
+        console.log("addNote");
+        
       createNote({ text: "New Note", x: 100, y: 100 });
       saveNotes();
     }
+  });
+
+  const handlePageChange = (event) => {
+    currentPathname = window.location.pathname;
+    chrome.runtime.sendMessage({ action: "loadNotes" }, (r) =>
+      handleLoadNotes(r)
+    );
+  };
+
+  navigation.addEventListener("navigate", () => {
+    setTimeout(() => {
+      handlePageChange();
+    }, 500);
   });
 })();
