@@ -216,11 +216,13 @@
         pathname: note.dataset.pathname,
       }));
       let oldNotes = r.notes || [];
-      oldNotes = oldNotes.filter((n)=> {
-        return n.domain !== currentDomain || n.pathname !== currentPathname;
-      }).filter((note) => {
-        return !noteData.some((n) => n.id === note.id);
-      });
+      oldNotes = oldNotes
+        .filter((n) => {
+          return n.domain !== currentDomain || n.pathname !== currentPathname;
+        })
+        .filter((note) => {
+          return !noteData.some((n) => n.id === note.id);
+        });
       noteData = noteData.concat(oldNotes);
       chrome.runtime.sendMessage({ action: "saveNotes", notes: noteData });
     });
@@ -246,6 +248,9 @@
         );
         activeNote.remove();
         saveNotes();
+      }
+      if (e.key === "<" && activeNote) {
+        activeNote.remove();
       }
     }
   });

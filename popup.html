@@ -1,34 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Sticky Notes</title>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        text-align: center;
-        padding: 10px;
-      }
-      button {
-        padding: 8px 12px;
-        cursor: pointer;
-      }
-    </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>fusen –Sticky Notes</title>
+    <link rel="stylesheet" href="popup.css" />
   </head>
   <body>
-    <h1>Sticky Notes</h3>
-    <button id="addNote">Add Note</button>
-    <script src="popup.js"></script>
-    <hr>
-    <h3>Sticky Notes Settings</h3>
-    <label for="percentage">Match Percentage for Pathname:</label>
-    <input type="number" id="percentage" min="0" max="100" step="1" value="100">
-    <button id="saveSettings">Save</button>
-    <hr />
-    <a
-      href="https://github.com/markedjs/marked?tab=License-1-ov-file"
-      target="_blank"
-      >Marked License</a
-    >
-    <script src="popup.js"></script>
+    <div class="popup-container">
+      <!-- Popup Header -->
+      <h1>Sticky Notes</h1>
+
+      <!-- Add Note Button -->
+      <button id="addNote">Add Note</button>
+
+      <!-- Separator Line -->
+      <hr />
+      <h3>Keyboard Shortcuts</h4>
+      <p>
+        <strong>Ctrl + Mod + x</strong>: Delete Note
+        <br />
+        <strong>Ctrl + Mod + y</strong>: New Note
+        <br />
+        <strong>Ctrl + Mod + &lt;</strong>: Temporarily Close Note
+      </p>
+      <hr />
+
+      <!-- Sticky Notes Settings Section -->
+      <h3>Sticky Notes Settings</h3>
+      <label for="percentage">Match Percentage for Pathname:</label>
+      <input
+        type="number"
+        id="percentage"
+        min="0"
+        max="100"
+        step="1"
+        value="100"
+      />
+      <button id="saveSettings">Save</button>
+
+      <!-- Separator Line -->
+      <hr />
+
+      <!-- License Link -->
+      <a
+        href="https://github.com/markedjs/marked?tab=License-1-ov-file"
+        target="_blank"
+        class="license-link"
+        >Marked License</a
+      >
+
+      <!-- Link to Popup JS -->
+      <script src="popup.js"></script>
+    </div>
   </body>
 </html>
