@@ -1,3 +1,106 @@
+.sticky-note pre,
+.sticky-note code {
+  font-family: "Courier New", monospace;
+  background: #505052;
+  color: white !important;
+  padding: 2px 5px;
+  border-radius: 4px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.sticky-note h1,
+.sticky-note h2,
+.sticky-note h3,
+.sticky-note h4,
+.sticky-note h5,
+.sticky-note h6 {
+  font-weight: bold;
+  margin: 5px 0;
+}
+
+.sticky-note h1 {
+  font-size: 1.5em;
+}
+.sticky-note h2 {
+  font-size: 1.4em;
+}
+.sticky-note h3 {
+  font-size: 1.3em;
+}
+.sticky-note h4 {
+  font-size: 1.2em;
+}
+.sticky-note h5 {
+  font-size: 1.1em;
+}
+.sticky-note h6 {
+  font-size: 1em;
+}
+
+.sticky-note blockquote {
+  border-left: 4px solid #ccc;
+  padding-left: 10px;
+  color: #666;
+  font-style: italic;
+}
+
+.sticky-note ul {
+  list-style-type: disc !important;
+  padding-left: 20px;
+}
+.sticky-note ol {
+  padding-left: 20px;
+  list-style-type: decimal !important;
+}
+
+.sticky-note li {
+  margin-bottom: 5px;
+}
+
+.sticky-note a {
+  color: #007bff;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.sticky-note a:hover {
+  text-decoration: none;
+}
+
+/* Bold and Italic */
+.sticky-note strong {
+  font-weight: bold;
+}
+
+.sticky-note em {
+  font-style: italic;
+}
+
+/* Horizontal Rule */
+.sticky-note hr {
+  border: none;
+  border-top: 1px solid #ddd;
+  margin: 10px 0;
+}
+
+/* Tables */
+.sticky-note table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.sticky-note th,
+.sticky-note td {
+  border: 1px solid #ccc;
+  padding: 5px;
+}
+
+.sticky-note th {
+  background: #eee;
+  font-weight: bold;
+}
+
 .sticky-note {
   position: absolute;
   background: #ffeb3b;
@@ -11,10 +114,12 @@
   cursor: grab;
   user-select: none;
   color: black;
+  z-index: 1000;
 }
 
 .sticky-note > * {
   cursor: auto;
+  font-family: "Times New Roman", Times, serif;
 }
 
 /* Markdown display */

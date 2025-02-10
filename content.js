@@ -3,6 +3,18 @@
   let activeNote = null;
   const { marked } = await import(chrome.runtime.getURL("libs/marked.esm.js"));
 
+  const renderer = {
+    code({ text, lang }) {
+      if (typeof text !== "string") {
+        text = String(text);
+      }
+      text = text.replace(/&nbsp;/g, " ");
+      return `<pre><code class="language-${lang}">${text}</code></pre>`;
+    },
+  };
+
+  marked.use({ renderer });
+
   let mouseX = 100,
     mouseY = 100;
 
