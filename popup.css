@@ -1,6 +1,6 @@
 /* General popup container */
 .popup-container {
-  width: 300px;
+  width: 350px !important;
   background-color: #fff;
   border: 1px solid #e0e0e0;
   border-radius: 10px;
@@ -29,6 +29,17 @@
   font-weight: normal;
   color: #333;
   margin-bottom: 10px;
+}
+
+img {
+  position: relative;
+  top: 0px;
+  left: 0px;
+  width: 90px;
+  height: auto;
+  margin-top: -10px;
+  user-select: none;
+  pointer-events: none;
 }
 
 label {
@@ -68,6 +79,11 @@ hr {
 
 .popup-container button:hover {
   background-color: #fdd835;
+}
+
+a {
+  color: #1976d2;
+  text-decoration: none;
 }
 
 /* License Link */

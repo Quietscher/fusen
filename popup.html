@@ -8,26 +8,26 @@
   </head>
   <body>
     <div class="popup-container">
-      <!-- Popup Header -->
-      <h1>Sticky Notes</h1>
-
-      <!-- Add Note Button -->
+      <img src="icons/note128.png" alt="fusen logo" />
+      <h1>fusen – Sticky notes that stick</h1>
+      <p>Welcome to fusen, a chromium extension that adds sticky notes to any webpage, that stay.</p>
+      <p>Start either by clicking the button below or by using the keyboard shortcut.</p>
       <button id="addNote">Add Note</button>
-
-      <!-- Separator Line -->
       <hr />
       <h3>Keyboard Shortcuts</h4>
       <p>
-        <strong>Ctrl + Mod + x</strong>: Delete Note
+        <strong>Ctrl + ⌘/⊞ + x</strong> : Delete Note
         <br />
-        <strong>Ctrl + Mod + y</strong>: New Note
+        <strong>Ctrl + ⌘/⊞ + y</strong> : New Note
         <br />
-        <strong>Ctrl + Mod + &lt;</strong>: Temporarily Close Note
+        <strong>Ctrl + ⌘/⊞ + &lt;</strong> : Temporarily Close Note
       </p>
       <hr />
-
-      <!-- Sticky Notes Settings Section -->
       <h3>Sticky Notes Settings</h3>
+      <p>How does fusen work?</p>
+      <p>With fusen, sticky notes are matched to the current page by the domain and the pathname.</p>
+      <p>The input defines the percentage of the pathname that must match to show the sticky note.</p>
+      <p>At 0, only the domain must match.</p>
       <label for="percentage">Match Percentage for Pathname:</label>
       <input
         type="number"
@@ -38,19 +38,21 @@
         value="100"
       />
       <button id="saveSettings">Save</button>
-
-      <!-- Separator Line -->
       <hr />
-
-      <!-- License Link -->
+      <div>
+        <a
+        href="https://github.com/Quietscher/fusen"
+        target="_blank"
+        >View on github</a
+      >
+      </div>
+      <hr />
       <a
         href="https://github.com/markedjs/marked?tab=License-1-ov-file"
         target="_blank"
         class="license-link"
         >Marked License</a
       >
-
-      <!-- Link to Popup JS -->
       <script src="popup.js"></script>
     </div>
   </body>
