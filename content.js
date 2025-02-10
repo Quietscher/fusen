@@ -79,36 +79,6 @@
     return (matchCount / storedPathname.length) * 100;
   }
 
-  //   function insertTrashIcon() {
-  //     fetch('libs/mui/delete.svg')
-  //       .then(response => response.text())
-  //       .then(svgContent => {
-  //         const deleteButton = document.createElement('button');
-  //         deleteButton.classList.add('delete-btn');
-  //         deleteButton.innerHTML = svgContent;
-
-  //         const toolbar = document.querySelector('.toolbar');
-  //         toolbar.appendChild(deleteButton);
-
-  //         deleteButton.addEventListener('click', () => {
-  //           const noteN = deleteButton.closest('.sticky-note');
-  //           notes = notes.filter(
-  //             (note) => note.dataset.id !== noteN.dataset.id
-  //           );
-  //           noteN.remove();
-  //           saveNotes();
-  //         });
-  //       })
-  //       .catch(error => console.error('Error loading SVG:', error));
-  //   }
-
-  //   function fillHTML(note) {
-  //     const toolbar = document.createElement("div");
-  //     toolbar.classList.add("toolbar");
-  //     insertTrashIcon();
-  //     note.appendChild(toolbar);
-  //   }
-
   function createNote(data) {
     const note = document.createElement("div");
     note.classList.add("sticky-note");
@@ -123,7 +93,6 @@
     note.innerHTML = getHTML(data.text || "");
     note.dataset.domain = data.domain || currentDomain;
     note.dataset.pathname = data.pathname || currentPathname;
-    // fillHTML(note);
     document.body.appendChild(note);
 
     let offsetX,
@@ -247,7 +216,9 @@
         pathname: note.dataset.pathname,
       }));
       let oldNotes = r.notes || [];
-      oldNotes = oldNotes.filter((note) => {
+      oldNotes = oldNotes.filter((n)=> {
+        return n.domain !== currentDomain || n.pathname !== currentPathname;
+      }).filter((note) => {
         return !noteData.some((n) => n.id === note.id);
       });
       noteData = noteData.concat(oldNotes);

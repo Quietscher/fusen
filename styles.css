@@ -119,6 +119,10 @@
 
 .sticky-note > * {
   cursor: auto;
+}
+
+.sticky-note,
+.sticky-note > * {
   font-family: "Times New Roman", Times, serif;
 }
 
