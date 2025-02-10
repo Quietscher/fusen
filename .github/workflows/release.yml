@@ -1,0 +1,23 @@
+name: Release chromium extension
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      
+      - name: Build chromium extension
+        run: |
+          zip -r fusen.zip ./
+      
+      - name: Create release on GitHub
+        uses: softprops/action-gh-release@v1
+        with:
+          files: fusen.zip
