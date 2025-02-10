@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "fusen",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Add sticky notes to any webpage and keep them in place.",
   "permissions": ["storage"],
   "host_permissions": ["<all_urls>"],
