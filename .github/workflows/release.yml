@@ -1,4 +1,4 @@
-name: Release chromium extension
+name: Release fuesn chromium extension
 
 on:
   push:

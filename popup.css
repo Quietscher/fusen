@@ -14,7 +14,6 @@
   flex-direction: column;
 }
 
-/* Title at the top of the popup */
 .popup-container h1 {
   font-size: 18px;
   font-weight: bold;
@@ -23,7 +22,6 @@
   padding-bottom: 10px;
 }
 
-/* Settings Section */
 .popup-container h3 {
   font-size: 16px;
   font-weight: normal;
@@ -52,7 +50,6 @@ hr {
   margin: 15px 0;
 }
 
-/* Input field for percentage */
 .popup-container input[type="number"] {
   width: 60px;
   padding: 5px;
@@ -63,7 +60,6 @@ hr {
   margin: auto;
 }
 
-/* Buttons in popup */
 .popup-container button {
   background-color: #ffeb3b;
   border: none;
@@ -86,7 +82,6 @@ a {
   text-decoration: none;
 }
 
-/* License Link */
 .license-link {
   font-size: 12px;
   color: #1976d2;
@@ -98,7 +93,6 @@ a {
   text-decoration: underline;
 }
 
-/* Popup responsiveness for mobile screens */
 @media (max-width: 320px) {
   .popup-container {
     width: 240px;

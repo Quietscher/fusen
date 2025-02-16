@@ -68,7 +68,6 @@
   text-decoration: none;
 }
 
-/* Bold and Italic */
 .sticky-note strong {
   font-weight: bold;
 }
@@ -77,14 +76,12 @@
   font-style: italic;
 }
 
-/* Horizontal Rule */
 .sticky-note hr {
   border: none;
   border-top: 1px solid #ddd;
   margin: 10px 0;
 }
 
-/* Tables */
 .sticky-note table {
   border-collapse: collapse;
   width: 100%;
@@ -126,7 +123,6 @@
   font-family: "Times New Roman", Times, serif;
 }
 
-/* Markdown display */
 .note-display {
   width: 100%;
   height: 100%;
@@ -137,7 +133,6 @@
   word-wrap: break-word;
 }
 
-/* Hide textarea unless editing */
 .note-content {
   width: 100%;
   height: 100%;
