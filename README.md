@@ -38,6 +38,8 @@ Done! 🎉
 
 Have a look at the issues or open a new one with your ideas :)<br>
 Then fork the repository and create a pull request.<br>
+When committing on your branch or creating a pull request to the project always use [gitmojis](https://gitmoji.dev/) to describe your commits.<br>
+I recommend using the command line tool [gitmoji-cli](https://github.com/carloscuesta/gitmoji-cli) to add the gitmojis to your commits.
 
 ## Keyboard shortcuts
 
