@@ -54,6 +54,9 @@ Have a look at the issues or open a new one with your ideas :)<br>
 Then fork the repository and create a pull request.<br>
 When committing on your branch or creating a pull request to the project always use [gitmojis](https://gitmoji.dev/) to describe your commits.<br>
 I recommend using the command line tool [gitmoji-cli](https://github.com/carloscuesta/gitmoji-cli) to add the gitmojis to your commits.
+<br>
+<br>
+Designwise, you will find the documents in the [/assets](./assets) folder.<br>
 
 
 ### License of used libraries
@@ -63,3 +66,5 @@ I recommend using the command line tool [gitmoji-cli](https://github.com/carlosc
     Copyright (c) 2011-2022, Christopher Jeffrey. (MIT License)
   - Repo: [marked](https://github.com/markedjs/marked)
   - Full License at: [here](/libs/marked.LICENSE)
+- mui for icons:
+  - License here: [material-ui-icons license](https://github.com/google/material-design-icons?tab=Apache-2.0-1-ov-file)
