@@ -23,7 +23,7 @@ Core values of fusen are:
 
 ## In action
 
-<img src="./assets/fusen.gif" alt="fusen demo" width="600"/>
+![demo gif](./assets/fusendemo.gif)
 
 ## Installation
 
