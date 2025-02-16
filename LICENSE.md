@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) 2025 Quirin Wittmann [https://wittmannq.de](https://wittmannq.de) [@Quietscher](https://github.com/Quietscher)
+Copyright (c) 2025 Quirin Wittmann [https://wittmannq.de](https://wittmannq.de), [@Quietscher](https://github.com/Quietscher)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

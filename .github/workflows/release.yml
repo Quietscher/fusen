@@ -15,7 +15,7 @@ jobs:
       
       - name: Build chromium extension
         run: |
-          zip -r fusen.zip ./ -x "*.git*" "*.github*" "*.md" "*.yml" "*.gitignore" "*.DS_Store"
+          zip -r fusen.zip ./ -x "*.git*" "*.github*" "*.md" "*.yml" "*.gitignore" "*.DS_Store" "assets"
       
       - name: Create release on GitHub
         uses: softprops/action-gh-release@v1
