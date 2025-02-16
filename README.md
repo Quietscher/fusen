@@ -34,13 +34,6 @@ Open the [extension page](chrome://extensions/) in your chromium browser.<br>
 Click on "Load unpacked" and select the extracted fusen folder.<br>
 Done! 🎉
 
-## Contribution
-
-Have a look at the issues or open a new one with your ideas :)<br>
-Then fork the repository and create a pull request.<br>
-When committing on your branch or creating a pull request to the project always use [gitmojis](https://gitmoji.dev/) to describe your commits.<br>
-I recommend using the command line tool [gitmoji-cli](https://github.com/carloscuesta/gitmoji-cli) to add the gitmojis to your commits.
-
 ## Keyboard shortcuts
 
 | Shortcut | Action |
@@ -55,7 +48,15 @@ You can configure the match percentage for the pathname in the extension setting
 With it you can define how sticky notes are matched to the current page by the pathname.<br>
 The input defines the percentage of the pathname that must match to show the sticky note.<br>
 
-## License of used libraries
+## Contribution
+
+Have a look at the issues or open a new one with your ideas :)<br>
+Then fork the repository and create a pull request.<br>
+When committing on your branch or creating a pull request to the project always use [gitmojis](https://gitmoji.dev/) to describe your commits.<br>
+I recommend using the command line tool [gitmoji-cli](https://github.com/carloscuesta/gitmoji-cli) to add the gitmojis to your commits.
+
+
+### License of used libraries
 
 - marked.js
   - License
